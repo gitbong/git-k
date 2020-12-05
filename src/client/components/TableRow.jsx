@@ -1,6 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import styled from "styled-components";
+import { expendTableRow } from "../actions/routesAction";
+import { useRoutesContext } from "../contexts/routesContext";
 import * as S from "../styles";
+
+const TD = styled.td`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+
 export const TableRow = ({
+  routeId,
   name,
   method,
   path,
@@ -10,7 +21,18 @@ export const TableRow = ({
   onChangeHandler,
   onChangeDelay,
 }) => {
-  const [isExpended, setIsExpended] = useState(false);
+  const {
+    state: { routes, expendedRows },
+    dispatch,
+  } = useRoutesContext();
+
+  let index;
+  routes.find((route, idx) => {
+    index = idx;
+    return route.id === routeId;
+  });
+
+  const isExpended = expendedRows[index];
 
   const onClickOnSelect = (event) => {
     event.stopPropagation();
@@ -19,17 +41,18 @@ export const TableRow = ({
   return (
     <>
       <tr
+        style={{ cursor: "pointer" }}
         onClick={() => {
-          setIsExpended(!isExpended);
+          dispatch(expendTableRow(routeId));
         }}
       >
-        <td>
+        <TD>
           <S.ExpendIcon>{isExpended ? "- " : "+ "}</S.ExpendIcon>
-          {name}
-        </td>
+          <span style={{ textTransform: "capitalize" }}>{name}</span>
+        </TD>
         <td>{method}</td>
         <td>{path}</td>
-        <td>{handlers.find((item) => item.id === currentHandlerId).name}</td>
+        <TD>{handlers.find((item) => item.id === currentHandlerId).name}</TD>
         <td>
           <select
             onClick={onClickOnSelect}
@@ -53,11 +76,9 @@ export const TableRow = ({
         <tr>
           <td
             colSpan="5"
-            style={{ paddingLeft: "30px", paddingBottom: "10px" }}
+            style={{ paddingLeft: "30px", paddingBottom: "30px" }}
           >
-            <h4 style={{ margin: "-5px 0 0 0" }}>
-              {`└ How would you like the response?`}{" "}
-            </h4>
+            <span>Responses : </span>
             {handlers.map((handler, i) => (
               <S.ResponseButton
                 active={handler.id === currentHandlerId}

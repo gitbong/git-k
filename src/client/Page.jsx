@@ -1,11 +1,9 @@
 import "@babel/polyfill";
 import React, { useReducer } from "react";
-
-import * as S from "./styles";
-
-import { routesReducer, initialState } from "./reducers/routesReducer";
+import { SearchInput, Table } from "./components";
 import { RoutesProvider } from "./contexts/routesContext";
-import { Table } from "./components/Table";
+import { initialState, routesReducer } from "./reducers/routesReducer";
+import * as S from "./styles";
 
 const Page = () => {
   const [state, dispatch] = useReducer(routesReducer, initialState);
@@ -18,6 +16,7 @@ const Page = () => {
             <span>Git</span>
             <span>K</span>
           </S.Logo>
+          <SearchInput />
         </S.Header>
         <S.Main>
           <Table />

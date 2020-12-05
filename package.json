@@ -1,6 +1,6 @@
 {
-  "name": "gitk",
-  "version": "1.0.1",
+  "name": "git-k",
+  "version": "2.0.0",
   "description": "Mock server for local development",
   "main": "dist/server/GitK.js",
   "license": "MIT",
@@ -12,7 +12,8 @@
     "build:server": "babel src/server --out-dir dist/server",
     "build": "npm run build:client && npm run build:server",
     "lint": "eslint  \"./src/**/*.{jsx,js,json}\"  --fix",
-    "format": "prettier --write \"./src/**/*.{jsx,js,json}\" "
+    "format": "prettier --write \"./src/**/*.{jsx,js,json}\" ",
+    "test":"jest"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

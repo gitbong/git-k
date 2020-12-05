@@ -7,7 +7,7 @@ import { useRoutesContext } from "../contexts/routesContext";
 import { initializeRoutesAction } from "../actions/routesAction";
 export const Table = () => {
   const {
-    state: { routes },
+    state: { routes, searchKeyword },
     dispatch,
   } = useRoutesContext();
 
@@ -26,12 +26,17 @@ export const Table = () => {
   }, []);
 
   const routesArr = Object.keys(routes).map((routeId) => routes[routeId]);
+  const filteredRoutes =
+    searchKeyword.trim() === ""
+      ? routesArr
+      : routesArr.filter((route) => route.name.includes(searchKeyword.trim()));
 
+  if (filteredRoutes.length === 0) return <div>No route found :(</div>;
   return (
     <S.Table cellspacing="0" cellpadding="0">
       <thead>
         <tr>
-          <th>Name</th>
+          <th>API</th>
           <th>Method</th>
           <th>Path</th>
           <th>Current response</th>
@@ -40,9 +45,10 @@ export const Table = () => {
       </thead>
       <tbody>
         {routes &&
-          routesArr.map((route, i) => (
+          filteredRoutes.map((route, i) => (
             <TableRow
               key={`route-${i}`}
+              routeId={route.id}
               name={route.name}
               method={route.method}
               path={route.path}

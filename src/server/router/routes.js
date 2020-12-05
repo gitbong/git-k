@@ -30,6 +30,8 @@ export const addRoute = (config) =>
 
 export const getHandler = (routeId) => {
   const currentHandlerId = db().getData(ROUTE_TABLE, routeId).currentHandlerId;
-  const handler = db().getData(HANDLER_TABLE, currentHandlerId).handler;
-  return handler ? handler : () => "GitK: No handler found";
+  const { handler, status } = db().getData(HANDLER_TABLE, currentHandlerId);
+  return !!handler
+    ? { handler, status }
+    : { handler: () => "GitK: No handler found", status: 404 };
 };

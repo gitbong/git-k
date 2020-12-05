@@ -30,14 +30,14 @@ mock.route({
     {
       name: "success",
       status: 200,
-      handler: (response) => {
-        return [{name: 'Tom',age: '12'},{'Jerry', '10'}];
+      handler: (request, response) => {
+        return [{name: 'Tom',age: '12'},{name:'Jerry', age:'10'}];
       },
     },
     {
       name: "fail",
       status: 400,
-      handler: (response) => {
+      handler: (request, response) => {
         return [];
       },
     },

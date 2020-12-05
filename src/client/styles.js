@@ -9,12 +9,13 @@ export const Page = styled.div`
   background: white;
 `;
 export const Header = styled.header`
+  display: flex;
   flex: 0 0 auto;
+  justify-content: space-between;
   border-bottom: 1px solid #eee;
   line-height: 3.5rem;
   height: 3.5rem;
   padding: 0 1rem;
-  font-size: 1.5rem;
 `;
 export const Main = styled.main`
   flex: 1 1 auto;
@@ -57,10 +58,12 @@ export const ResponseButton = styled.button`
   background: ${({ active }) => (active ? "#34a854" : "#eee")};
   color: ${({ active }) => (active ? "white" : "#666")};
   border: none;
-  border-radius: 4px;
+  border-radius: 100px;
   cursor: pointer;
   appearance: none;
   transition: all 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const Table = styled.table`
@@ -72,19 +75,5 @@ export const Table = styled.table`
   }
   td {
     padding: 0 10px;
-  }
-  tr {
-    height: 35px;
-    line-height: 35px;
-    &:nth-child(even) {
-      /* background-color: #efefef; */
-    }
-  }
-  tbody {
-    tr {
-      :hover {
-        background-color: rgba(0, 0, 0, 0.03);
-      }
-    }
   }
 `;

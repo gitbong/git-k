@@ -2,21 +2,25 @@ import GitK from "./GitK";
 
 const app = new GitK();
 app.route({
-  name: "api 1",
+  name: "GitK is a mock",
   path: "/pages/goods",
   method: "GET",
   handlers: [
     {
-      name: "success",
+      name: "GitK is a mock server",
       status: 500,
-      handler: ({ query: { a } }) => {
+      handler: (req, res) => {
+        const {
+          query: { a },
+        } = res;
+        req.status(300);
         return { a, b: 1 };
       },
     },
     {
       name: "fail",
       status: 400,
-      handler: ({ query: { a } }) => {
+      handler: (req, { query: { a } }) => {
         return { a, b: 33 };
       },
     },
@@ -27,7 +31,7 @@ app.route({
   ],
 });
 app.route({
-  name: "api 2",
+  name: "with a fancy dashboard",
   path: "/pages/goods",
   method: "POST",
   handlers: [
